@@ -19,6 +19,7 @@ form.addEventListener("click", e=> {
 
     checkCreditCard();
     checkExpiration();
+    checkCarYear();
     
     displayTotal();
     // let daysArray = countDays(getDayOfWeek(startDate), numDays);
@@ -27,6 +28,21 @@ form.addEventListener("click", e=> {
 })
 
 
+function checkCarYear() {
+    let caryearInput = document.querySelector("#car-year");
+    let carYear = parseInt(caryearInput.value);
+    // current year models limit. sometimes theres models that are a year after so thats included
+    let currentYear = new Date().getFullYear() + 1;
+
+    if (carYear > currentYear) {
+        validForm = false;
+        caryearInput.setCustomValidity(`Car year cannot be over ${currentYear}.`);
+    }else {
+        caryearInput.setCustomValidity("");
+    }
+
+
+}
 
 function checkCreditCard() {
     let cardNumber = cardInput.value;
