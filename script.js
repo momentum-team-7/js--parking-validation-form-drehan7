@@ -18,6 +18,7 @@ form.addEventListener("click", e=> {
     validForm = true;
 
     checkCreditCard();
+    checkExpiration();
     
     displayTotal();
     // let daysArray = countDays(getDayOfWeek(startDate), numDays);
@@ -132,4 +133,31 @@ function getDayOfWeek(startingDate) {
 }
 
 
+function checkExpiration() {
+    // Last 2 digits of the current year
+    let d = new Date();
+    let currentYear = d.getFullYear()%100;
+    let currentMonth = d.toLocaleDateString().substr(0,1);
+    var regex = new RegExp("^[0-1][0-9]/[0-9][0-9]");
+    let expiration = document.querySelector("#expiration");
+
+    if (!regex.test(expiration.value)) {
+        validForm = false;
+        expiration.setCustomValidity("Not valid format")
+    }else if (regex.test(expiration.value)) {
+        let lastTwoOfYear = parseInt(expiration.value.substr(expiration.value.length -2));
+        let month = parseInt(expiration.value);
+        if((month<1||month>12) || (lastTwoOfYear < currentYear) || (lastTwoOfYear === currentYear && month < currentMonth)) {
+            validForm = false;
+            expiration.setCustomValidity("Not valid Month or Year");
+        } else {
+            expiration.setCustomValidity("")
+        }
+    } else {
+        expiration.setCustomValidity("");
+    }
+
+
+
+}
 
