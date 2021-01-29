@@ -38,3 +38,7 @@
 .input-group input:last-child {
   margin-right: 0;
 }
+
+#total {
+  color: green;
+}
