@@ -1,8 +1,7 @@
 let submitButton = document.querySelector("#submit-button");
 let form = document.querySelector("#parking-form");
 let total = document.querySelector("#total");
-let startDate = document.querySelector("#start-date");
-let numDays = parseInt(document.querySelector("#days").value);
+// let numDays = parseInt(document.querySelector("#days").value);
 
 window.addEventListener('submit', e => {
     e.preventDefault();
@@ -11,7 +10,12 @@ window.addEventListener('submit', e => {
 
 
 submitButton.addEventListener("click", e=> {
+    let startDate = document.querySelector("#start-date").value;
+
+    let numDays = parseInt(document.querySelector("#days").value);
+
     let result = getTotal(countDays(getDayOfWeek(startDate), numDays));
+
     let daysArray = countDays(getDayOfWeek(startDate), numDays);
     console.log(result);
     console.log(daysArray);
@@ -63,10 +67,11 @@ function countDays(startingDate, numOfDays) {
 function getDayOfWeek(startingDate) {
 
     // Convert to correct date format
-    let actualDate = startingDate.value.replace(/-/g, '\/');
+    let actualDate = startingDate.replace(/-/g, '\/');
     let d = new Date(actualDate).getDay();
 
     return d;
 }
+
 
 
