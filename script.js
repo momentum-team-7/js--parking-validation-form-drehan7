@@ -9,6 +9,7 @@ let validForm;
 window.addEventListener('submit', e => {
     e.preventDefault();
 })
+checkParkDate()
 
 
 
@@ -26,6 +27,27 @@ form.addEventListener("click", e=> {
     // console.log(result);
     // console.log(daysArray);
 })
+
+function checkParkDate() {
+    
+    let current = new Date();
+    let day = current.getDate();
+    // Starts at 0 for january
+    let month = current.getMonth() + 1;
+    let year = current.getFullYear();
+
+    if (day < 10) {
+        day = "0" + day;
+    } else if (month < 10) {
+        month = "0" + month;
+    }
+
+    let maxDate = year + "-" + month + "-" + day;
+
+    document.querySelector("#start-date").setAttribute("min", maxDate);
+
+
+}
 
 
 function checkCarYear() {
@@ -148,6 +170,10 @@ function getDayOfWeek(startingDate) {
     return d;
 }
 
+function convertDate(date) {
+    let newDate = date.replace(/-/g, '\/');
+    return newDate
+}
 
 function checkExpiration() {
     // Last 2 digits of the current year
@@ -172,7 +198,6 @@ function checkExpiration() {
     } else {
         expiration.setCustomValidity("");
     }
-
 
 
 }
